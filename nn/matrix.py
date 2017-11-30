@@ -35,6 +35,12 @@ class Matrix():
         y, x = key
         self.__arr[y][x] = value
 
+    def __neg__(self):
+        return Matrix(init=[
+            [-self[y,x] for x in range(self.xsize)]
+            for y in range(self.ysize)
+        ])
+
     def __add__(self, other):
         assert isinstance(other, self.__class__)
         assert self.xsize == other.xsize and self.ysize == other.ysize
@@ -45,6 +51,12 @@ class Matrix():
         ])
 
         return newmat
+
+    def __sub__(self, other):
+        assert isinstance(other, self.__class__)
+        assert self.xsize == other.xsize and self.ysize == other.ysize
+
+        return self + -other
 
     def __mul__(self, other):
         assert isinstance(other, self.__class__)

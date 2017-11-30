@@ -26,10 +26,34 @@ def test_matrix_add():
 
     result = mat1 + mat2
 
+    print(result.array)
+
     assert result.array == [
         [3, 5, 7],
         [7, 7, 7]
     ]
+
+
+def test_matrix_sub():
+    mat1 = Matrix(init=[
+        [1, 2, 3],
+        [4, 5, 6]
+    ])
+
+    mat2 = Matrix(init=[
+        [2, 3, 4],
+        [3, 2, 1],
+    ])
+
+    result = mat1 - mat2
+
+    print(result.array)
+
+    assert result.array == [
+        [-1, -1, -1],
+        [1, 3, 5]
+    ]
+
 
 def test_matrix_mul():
     mat1 = Matrix(init=[
@@ -50,3 +74,18 @@ def test_matrix_mul():
     print(result.array)
 
     assert result.array == [[14], [32]]
+
+
+def test_matrix_neg():
+    mat = Matrix(init=[
+        [1, 2, 3],
+        [4, 5, 6],
+    ])
+
+    result = -mat
+
+    print(result.array)
+    assert result.array == [
+        [-1, -2, -3],
+        [-4, -5, -6],
+    ]
