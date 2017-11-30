@@ -35,6 +35,17 @@ class Matrix():
         y, x = key
         self.__arr[y][x] = value
 
+    def __add__(self, other):
+        assert isinstance(other, self.__class__)
+        assert self.xsize == other.xsize and self.ysize == other.ysize
+
+        newmat = Matrix(init=[
+            [self[y, x] + other[y, x] for x in range(self.xsize)]
+            for y in range(self.ysize)
+        ])
+
+        return newmat
+
     def __mul__(self, other):
         assert isinstance(other, self.__class__)
         assert self.xsize == other.ysize

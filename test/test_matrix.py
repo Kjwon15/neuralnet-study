@@ -13,6 +13,24 @@ def test_matrix_init():
     assert mat2.array == init_array
 
 
+def test_matrix_add():
+    mat1 = Matrix(init=[
+        [1, 2, 3],
+        [4, 5, 6]
+    ])
+
+    mat2 = Matrix(init=[
+        [2, 3, 4],
+        [3, 2, 1],
+    ])
+
+    result = mat1 + mat2
+
+    assert result.array == [
+        [3, 5, 7],
+        [7, 7, 7]
+    ]
+
 def test_matrix_mul():
     mat1 = Matrix(init=[
         [1, 2, 3],
