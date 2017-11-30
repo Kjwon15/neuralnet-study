@@ -16,24 +16,29 @@ class NeuralNet():
         self.hidden_nodes = Matrix(1, hidden_size)
         self.w2 = Matrix(hidden_size, output_size, [[random.random()] * output_size for _ in range(hidden_size)])
         self.output_nodes = Matrix(1, output_size)
+        self.output = None
 
     def predict(self, x):
         self.feed(x)
-        return self.output_nodes.array[0]
+        return self.sigmoid(self.output_nodes).array[0]
 
     def feed(self, input_):
-        assert self.input_nodes.xsize == len(input_)
+        assert len(input_) == self.input_nodes.xsize
 
         for index, val in enumerate(input_):
             self.input_nodes[0, index] = val
 
         self.hidden_nodes = self.input_nodes * self.w1
-        self.output_nodes = self.hidden_nodes * self.w2
+        self.output_nodes = self.sigmoid(self.hidden_nodes) * self.w2
+        self.output = self.sigmoid(self.output_nodes)
 
     @staticmethod
-    def sigmoid(x: float):
-        return 1 / (1 + math.exp(-x))
+    def sigmoid(xs: Matrix):
+        newmat = Matrix(1, xs.xsize, [
+            [1 / (1 + math.exp(-x)) for x in xs.array[0]]
+        ])
+        return newmat
 
     @staticmethod
-    def dsigmoid(y: float):
+    def dsigmoid(y: Matrix):
         return y * (1 - y)
