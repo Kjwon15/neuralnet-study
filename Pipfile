@@ -13,3 +13,4 @@ numpy = "*"
 [dev-packages]
 
 pytest = "*"
+"flake8" = "*"

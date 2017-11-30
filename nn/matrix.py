@@ -2,7 +2,7 @@ import copy
 import itertools
 
 
-class Matrix():
+class Matrix:
 
     def __init__(self, y_size: int=None, x_size: int=None, init=None):
         if init is None:
@@ -44,7 +44,7 @@ class Matrix():
 
     def __neg__(self):
         return Matrix(init=[
-            [-self[y,x] for x in range(self.xsize)]
+            [-self[y, x] for x in range(self.xsize)]
             for y in range(self.ysize)
         ])
 
