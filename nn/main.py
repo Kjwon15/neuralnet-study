@@ -1,4 +1,3 @@
-import logging
 import logging.config
 import math
 import os
@@ -84,7 +83,6 @@ class NeuralNet():
 
         self.w1 += xs.transpose * hidden_delta @ self.learning_rate
         self.w2 += hidden_output.transpose * output_delta @ self.learning_rate
-
 
     @staticmethod
     def sigmoid(mat: Matrix):
