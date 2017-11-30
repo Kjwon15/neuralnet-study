@@ -4,14 +4,15 @@ import itertools
 
 class Matrix():
 
-    def __init__(self, y_size: int, x_size: int, init=None):
-        self.__arr = [[None] * x_size for _ in range(y_size)]
+    def __init__(self, y_size: int=None, x_size: int=None, init=None):
+        if init is None:
+            self.__arr = [[None] * x_size for _ in range(y_size)]
 
         if init is not None:
-            assert len(init) == self.ysize
-            assert len(init[0]) == self.xsize
-
-            for y, x in itertools.product(range(self.ysize), range(self.xsize)):
+            y_size = len(init)
+            x_size = len(init[0])
+            self.__arr = [[None] * x_size for _ in range(y_size)]
+            for y, x in itertools.product(range(y_size), range(x_size)):
                 self[y, x] = init[y][x]
 
     @property

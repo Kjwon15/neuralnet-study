@@ -1,7 +1,7 @@
 import math
 import random
 
-from matrix import Matrix
+from .matrix import Matrix
 
 
 class NeuralNet():
@@ -12,9 +12,9 @@ class NeuralNet():
         self.output_size = output_size
 
         self.input_nodes = Matrix(1, input_size)
-        self.w1 = Matrix(input_size, hidden_size, [[random.random()] * hidden_size for _ in range(input_size)])
+        self.w1 = Matrix(init=[[random.random()] * hidden_size for _ in range(input_size)])
         self.hidden_nodes = Matrix(1, hidden_size)
-        self.w2 = Matrix(hidden_size, output_size, [[random.random()] * output_size for _ in range(hidden_size)])
+        self.w2 = Matrix(init=[[random.random()] * output_size for _ in range(hidden_size)])
         self.output_nodes = Matrix(1, output_size)
         self.output = None
 
@@ -32,10 +32,16 @@ class NeuralNet():
         self.output_nodes = self.sigmoid(self.hidden_nodes) * self.w2
         self.output = self.sigmoid(self.output_nodes)
 
+    def train(self, xs, ys):
+        xs = Matrix(init=xs)
+        hidden_nodes = xs * self.w1  # multiple
+        output_nodes = self.sigmoid(hidden_nodes) * self.w2
+
     @staticmethod
     def sigmoid(xs: Matrix):
-        newmat = Matrix(1, xs.xsize, [
-            [1 / (1 + math.exp(-x)) for x in xs.array[0]]
+        newmat = Matrix(init=[
+            [1 / (1 + math.exp(-xs[y, x])) for x in range(xs.xsize)]
+            for y in range(xs.ysize)
         ])
         return newmat
 
