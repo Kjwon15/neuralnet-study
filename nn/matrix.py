@@ -27,6 +27,13 @@ class Matrix():
     def array(self):
         return copy.deepcopy(self.__arr)
 
+    @property
+    def transpose(self):
+        return Matrix(init=[
+            [self[y, x] for y in range(self.ysize)]
+            for x in range(self.xsize)
+        ])
+
     def __getitem__(self, item):
         y, x = item
         return self.__arr[y][x]
@@ -71,3 +78,19 @@ class Matrix():
             )
 
         return newmat
+
+    def __matmul__(self, other):
+        if isinstance(other, self.__class__):
+            assert self.xsize == other.xsize and self.ysize == other.ysize
+            return Matrix(init=[
+                [self[y, x] * other[y, x] for x in range(self.xsize)]
+                for y in range(self.ysize)
+            ])
+
+        elif any(isinstance(other, t) for t in (int, float)):
+            return Matrix(init=[
+                [self[y, x] * other for x in range(self.xsize)]
+                for y in range(self.ysize)
+            ])
+        else:
+            raise ValueError()

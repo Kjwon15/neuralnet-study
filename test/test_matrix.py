@@ -13,6 +13,23 @@ def test_matrix_init():
     assert mat2.array == init_array
 
 
+def test_matrix_transpose():
+    mat = Matrix(init=[
+        [1, 2, 3],
+        [4, 5, 6]
+    ])
+
+    result = mat.transpose
+
+    print(result.array)
+
+    assert result.array == [
+        [1, 4],
+        [2, 5],
+        [3, 6],
+    ]
+
+
 def test_matrix_add():
     mat1 = Matrix(init=[
         [1, 2, 3],
@@ -74,6 +91,44 @@ def test_matrix_mul():
     print(result.array)
 
     assert result.array == [[14], [32]]
+
+
+def test_matrix_matmul_matrix():
+    mat1 = Matrix(init=[
+        [1, 2, 3],
+        [4, 5, 6]
+    ])
+
+    result = mat1 @ mat1
+
+    print(result.array)
+
+    assert result.array == [
+        [1, 4, 9],
+        [16, 25, 36],
+    ]
+
+
+def test_matrix_matmul_number():
+    mat1 = Matrix(init=[
+        [1, 2, 3],
+        [4, 5, 6]
+    ])
+
+    result1 = mat1 @ 2
+    result2 = mat1 @ 2.0
+
+    print(result1.array)
+    print(result2.array)
+
+    assert result1.array == [
+        [2, 4, 6],
+        [8, 10, 12],
+    ]
+    assert result1.array == [
+        [2.0, 4.0, 6.0],
+        [8.0, 10.0, 12.0],
+    ]
 
 
 def test_matrix_neg():
